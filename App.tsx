@@ -27,6 +27,8 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   
+  const BASE_UPLOADER_ID = 'base-image-uploader';
+
   const handleBaseImageUpload = (file: File) => {
     if (baseImage) {
       const isConfirmed = window.confirm("Replace permanent Rex reference? This will change the identity used for all future pose generations.");
@@ -146,6 +148,7 @@ const App: React.FC = () => {
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">1. Base Character</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <ImageUploader 
+                id={BASE_UPLOADER_ID}
                 onFileUpload={handleBaseImageUpload}
                 label="Upload Base Character (Rex)" 
               />
@@ -156,8 +159,7 @@ const App: React.FC = () => {
                     <div className="flex justify-center md:justify-start items-center gap-4">
                         <img src={`data:${baseImage.mimeType};base64,${baseImage.data}`} alt="Base Character Preview" className="w-24 h-24 rounded-lg object-cover shadow-md" />
                         <div className="flex flex-col gap-2">
-                             {/* FIX: The `size` prop was not defined on the Button component, and sizing was being handled by a redundant `className`. The Button component has been updated to accept a `size` prop, and the redundant `className` has been removed. */}
-                             <Button onClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()} variant="secondary" size="sm">Replace</Button>
+                             <Button onClick={() => document.getElementById(BASE_UPLOADER_ID)?.click()} variant="secondary" size="sm">Replace</Button>
                              <Button onClick={handleDeleteBaseImage} variant="danger" size="sm">Delete</Button>
                         </div>
                     </div>

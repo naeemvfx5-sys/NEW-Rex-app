@@ -6,9 +6,10 @@ interface ImageUploaderProps {
   onFileUpload: (file: File) => void;
   label: string;
   existingPreview?: string;
+  id?: string;
 }
 
-export const ImageUploader: React.FC<ImageUploaderProps> = ({ onFileUpload, label, existingPreview }) => {
+export const ImageUploader: React.FC<ImageUploaderProps> = ({ onFileUpload, label, existingPreview, id }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -45,7 +46,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onFileUpload, labe
           <p className="text-xs text-gray-500">{label}</p>
         </div>
       )}
-      <input type="file" className="hidden" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
+      <input id={id} type="file" className="hidden" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
     </label>
   );
 };
